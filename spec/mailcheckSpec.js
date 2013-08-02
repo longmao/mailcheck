@@ -1,6 +1,7 @@
 describe("mailcheck", function() {
-  var domains = ['yahoo.com', 'yahoo.com.tw', 'google.com','hotmail.com', 'gmail.com', 'emaildomain.com', 'comcast.net', 'facebook.com', 'msn.com', 'gmx.com'];
-  var topLevelDomains = ['co.uk', 'com', 'org', 'info'];
+  var domains = ['yahoo.com', 'yahoo.com.tw', 'google.com','hotmail.com', 'gmail.com', 'emaildomain.com', 'comcast.net', 'facebook.com', 'msn.com', 'gmx.com','hotmail.com', 'xueqiu.com',  'gmail.com', 'aol.com', '163.com', '126.com',  'sohu.com',  'live.com',  'outlook.com',  'sina.com.cn',  'tom.com',  'qq.com' , "me.com" , "139.com" , "foxmail.com" , "yahoo.com.cn" , "yeah.net" , "21cn.com" , "vip.qq.com" , "vip.sina.com" , "189.cn" , "aliyun.com" , "vip.163.com","sina.com","sina.cn", '263.net', '3g.sina.cn' ,"eyou.com" ,"ymail.com"];
+
+  var topLevelDomains = ["co.uk", "com", "net", "org", "info", "gov", "mil",'com.cn','com.hk','com.tw',"edu.cn"];
 
   describe("Kicksend.mailcheck", function(){
     var mailcheck;
@@ -117,6 +118,28 @@ describe("mailcheck", function() {
       });
     });
 
+    describe("xueqiu email test cases", function () {
+      it("pass", function () {
+        expect(mailcheck.suggest('test@163..com', domains).domain).toEqual('163.com');
+        expect(mailcheck.suggest('test@163.con', domains).domain).toEqual('163.com');
+        expect(mailcheck.suggest('test@.163.com', domains).domain).toEqual('163.com');
+        expect(mailcheck.suggest('test@163.c0m', domains).domain).toEqual('163.com');
+        expect(mailcheck.suggest('test@126..com', domains).domain).toEqual('126.com');
+        expect(mailcheck.suggest('test@126.con', domains).domain).toEqual('126.com');
+        expect(mailcheck.suggest('test@.qq..com', domains).domain).toEqual('qq.com');
+        expect(mailcheck.suggest('test@qq.con', domains).domain).toEqual('qq.com');
+        expect(mailcheck.suggest('test@qq.com.cn', domains).domain).toEqual('qq.com');
+        expect(mailcheck.suggest('test@.qq.com', domains).domain).toEqual('qq.com');
+        expect(mailcheck.suggest('test@qq.cn', domains).domain).toEqual('qq.com');
+        expect(mailcheck.suggest('test@gmail.con', domains).domain).toEqual('gmail.com');
+        expect(mailcheck.suggest('test@gamil.com', domains).domain).toEqual('gmail.com')
+        expect(mailcheck.suggest('test@sian.com', domains).domain).toEqual('sina.com'
+      });
+    });
+
+
+
+
     describe("mailcheck.splitEmail", function () {
       it("returns a hash of the address, the domain, and the top-level domain", function () {
         expect(mailcheck.splitEmail('test@example.com')).toEqual({
@@ -211,7 +234,7 @@ describe("mailcheck", function() {
         expect(mailcheck.findClosestDomain('cmo', topLevelDomains)).toEqual('com');
         expect(mailcheck.findClosestDomain('ogr', topLevelDomains)).toEqual('org');
         expect(mailcheck.findClosestDomain('ifno', topLevelDomains)).toEqual('info');
-        expect(mailcheck.findClosestDomain('com.uk', topLevelDomains)).toEqual('co.uk');
+        expect(mailcheck.findClosestDomain('cm.uk', topLevelDomains)).toEqual('co.uk');
       });
     });
   });
