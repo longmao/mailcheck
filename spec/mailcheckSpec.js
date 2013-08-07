@@ -133,7 +133,10 @@ describe("mailcheck", function() {
         expect(mailcheck.suggest('test@qq.cn', domains).domain).toEqual('qq.com');
         expect(mailcheck.suggest('test@gmail.con', domains).domain).toEqual('gmail.com');
         expect(mailcheck.suggest('test@gamil.com', domains).domain).toEqual('gmail.com')
-        expect(mailcheck.suggest('test@sian.com', domains).domain).toEqual('sina.com'
+        expect(mailcheck.suggest('test@sian.com', domains).domain).toEqual('sina.com')
+        expect(mailcheck.suggest('test@gmail.con', domains).domain).toEqual('gmail.com');
+        expect(mailcheck.suggest('test@gmail.von', domains).domain).toEqual('gmail.com');
+        expect(mailcheck.suggest('test@gmail.xon', domains).domain).toEqual('gmail.com');
       });
     });
 
